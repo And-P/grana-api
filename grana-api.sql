@@ -8,11 +8,8 @@ describe pessoa;
 select * from flyway_schema_history;
 select * from categoria;
 select * from pessoa;
+select * from lancamento;
 
-delete from categoria where codigo = 15;
+delete from flyway_schema_history where version = 03;
+drop table lancamento; 
 
-INSERT INTO categoria (nome) values ('Lazer');
-INSERT INTO categoria (nome) values ('Alimentação');
-INSERT INTO categoria (nome) values ('Supermercado');
-INSERT INTO categoria (nome) values ('Farmácia');
-INSERT INTO categoria (nome) values ('Outros');

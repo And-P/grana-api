@@ -51,9 +51,7 @@ public class PessoaResource {
 	public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
 		
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
-		
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo() ));
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
 	}
 	
@@ -62,7 +60,6 @@ public class PessoaResource {
 	public ResponseEntity<Pessoa> buscaPeloCodigo(@PathVariable Long codigo) {
 		
 		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
-		
 		return pessoa.isPresent() ? ResponseEntity.ok(pessoa.get()) : ResponseEntity.notFound().build();
 	}
 	
@@ -85,8 +82,6 @@ public class PessoaResource {
 	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
 		pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
 	}
-	
-
 }
 
 
