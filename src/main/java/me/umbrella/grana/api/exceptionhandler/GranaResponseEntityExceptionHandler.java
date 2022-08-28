@@ -1,4 +1,4 @@
-package me.umbrella.grana.api.ExceptionHandler;
+package me.umbrella.grana.api.exceptionhandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;

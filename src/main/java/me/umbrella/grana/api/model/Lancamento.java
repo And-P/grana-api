@@ -57,6 +57,7 @@ public class Lancamento {
 	private Pessoa pessoa;
 	
 	
+	
 	//METHODS
 
 	public Long getCodigo() {
