@@ -65,13 +65,20 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-validation</artifactId>
 	    </dependency>
-	    
+
+		<!-- Hibernate-JpaModelgen -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-jpamodelgen</artifactId>
+		    <scope>provided</scope>
+		</dependency>	
+
 	    <!-- Commons Lang 3 - Pega a Causa da Exception - por exemplo, qual propriedade causou a eException -->
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		</dependency>	
-			
+		
 	</dependencies>
 
 	<build>

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +29,7 @@ import me.umbrella.grana.api.event.RecursoCriadoEvent;
 import me.umbrella.grana.api.exceptionhandler.GranaResponseEntityExceptionHandler.Erro;
 import me.umbrella.grana.api.model.Lancamento;
 import me.umbrella.grana.api.repository.LancamentoRepository;
+import me.umbrella.grana.api.repository.filter.LancamentoFilter;
 import me.umbrella.grana.api.service.LancamentoService;
 import me.umbrella.grana.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -50,8 +53,8 @@ public class LancamentoResource {
 	//METHODS
 	
 	@GetMapping
-	public List<Lancamento> listar() {
-		return lancamentoRepository.findAll();
+	public Page<Lancamento> pequisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
+		return lancamentoRepository.filtrar(lancamentoFilter, pageable);
 	}
 	
 	@GetMapping("/{codigo}")
