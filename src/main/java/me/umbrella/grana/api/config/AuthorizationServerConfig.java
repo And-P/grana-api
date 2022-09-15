@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -24,25 +23,32 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-    	
-	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	
 	
 	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		
 		clients.inMemory()
 				.withClient("angular")
-				.secret(passwordEncoder.encode("@ngul@r"))
+				.secret("$2a$10$9NKRicZMhK.Ppv/3DiA5sO/5L3VmidE9NTmCqVkaxLYdDjqixM.9.") // "@ngul@r"
 				.scopes("read", "write")
 				.authorizedGrantTypes("password", "refresh_token")
-				.accessTokenValiditySeconds(30)
+				.accessTokenValiditySeconds(300)
 				.refreshTokenValiditySeconds(3600 * 24);
+		/*
+		 * .and() .withClient("android")
+		 * .secret("$2a$10$vnehmKodyVKR75M0tBNJAeLQ6qYTePmqKXmOw.6VdBEx2eRGQuB7q") //
+		 * "@ndr0id" .scopes("read") .authorizedGrantTypes("password", "refresh_token")
+		 * .accessTokenValiditySeconds(300) .refreshTokenValiditySeconds(3600 * 24);
+		 */
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		
 		endpoints
 			.authenticationManager(authenticationManager)
 			.accessTokenConverter(accessTokenConverter())
@@ -64,7 +70,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-
 
 }
 
