@@ -10,16 +10,22 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import me.umbrella.grana.api.config.property.GranaApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
 	
-	private String origemPermitida = "http://localhost:8000"; //TODO: Configurar diferentes ambientes
+	@Autowired
+	private GranaApiProperty configProperty;
+	
+	
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -28,10 +34,10 @@ public class CorsFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request; 
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		res.setHeader("Access-Control-Allow-Origin", origemPermitida);
+		res.setHeader("Access-Control-Allow-Origin", configProperty.getOrigemPermitida());
 		res.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(req.getMethod()) && origemPermitida.equals(req.getHeader("Origin"))) {
+		if ("OPTIONS".equals(req.getMethod()) && configProperty.getOrigemPermitida().equals(req.getHeader("Origin"))) {
 			
 			res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 			res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");

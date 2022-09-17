@@ -31,6 +31,7 @@ import me.umbrella.grana.api.exceptionhandler.GranaResponseEntityExceptionHandle
 import me.umbrella.grana.api.model.Lancamento;
 import me.umbrella.grana.api.repository.LancamentoRepository;
 import me.umbrella.grana.api.repository.filter.LancamentoFilter;
+import me.umbrella.grana.api.repository.projection.LancamentoProjection;
 import me.umbrella.grana.api.service.LancamentoService;
 import me.umbrella.grana.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -51,6 +52,12 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 	
 	
+	
+	@GetMapping(params = "resumo")
+ 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('SCOPE_read')")
+	public Page<LancamentoProjection> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+		return lancamentoRepository.resumir(lancamentoFilter, pageable);
+	}
 	
 	@GetMapping
  	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and hasAuthority('SCOPE_read')")
