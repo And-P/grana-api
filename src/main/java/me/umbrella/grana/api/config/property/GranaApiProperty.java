@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@ConfigurationProperties("granaapiproperty")
+@ConfigurationProperties("grana-api-property")
 public class GranaApiProperty {
 	
 	private final Seguranca seguranca = new Seguranca();
