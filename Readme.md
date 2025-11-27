@@ -27,7 +27,7 @@
 - Spring Security
 - Oauth2
 - Hibernate 
-- Mysql [5]
+- Mysql [8.0.42]
 - Flyway
 
 
